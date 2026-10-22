@@ -1,0 +1,53 @@
+# Builds the tools of ai-pcb-worker for every system and publishes them as a release with their
+# SHA-256 (the worker pins them). Started by hand: Actions → tools → Run workflow.
+name: tools
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release number of the tools (e.g. 1)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { system: darwin-arm64, runner: macos-14 }
+          - { system: darwin-x64, runner: macos-15-intel }
+          - { system: linux-x64, runner: ubuntu-22.04 }
+          - { system: linux-arm64, runner: ubuntu-22.04-arm }
+          - { system: win32-x64, runner: windows-2022 }
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        shell: bash
+        run: scripts/build-tools.sh ${{ matrix.system }} ${{ inputs.release }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tools-${{ matrix.system }}
+          path: dist/*.tar.gz
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Checksums
+        run: cd dist && sha256sum *.tar.gz | tee SHA256SUMS
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "tools-${{ inputs.release }}" dist/*
+          --repo "${{ github.repository }}" --title "Tools ${{ inputs.release }}"
+          --notes "Freerouting 2.4.1, ngspice 44.2, Temurin 25 (reduced). Built by .github/workflows/tools.yml from public sources; see the README for licences."
