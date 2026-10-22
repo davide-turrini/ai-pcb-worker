@@ -8,6 +8,21 @@ unlimited, on every plan, and your boards never wait in a shared queue.
 This repository holds what you download: the `pcbmate-worker` executable for your system, its
 install scripts, and the programs it runs, built here from their public sources.
 
+## Download
+
+The latest version is **0.1.0** ([release notes and checksums](https://github.com/pcbmate/worker-cli/releases/latest)):
+
+| System | Download |
+|---|---|
+| macOS, Apple Silicon (M1 and later) | [pcbmate-worker-0.1.0-darwin-arm64](https://github.com/pcbmate/worker-cli/releases/download/worker-0.1.0/pcbmate-worker-0.1.0-darwin-arm64) |
+| macOS, Intel | [pcbmate-worker-0.1.0-darwin-x64](https://github.com/pcbmate/worker-cli/releases/download/worker-0.1.0/pcbmate-worker-0.1.0-darwin-x64) |
+| Windows (x64) | [pcbmate-worker-0.1.0-win32-x64.exe](https://github.com/pcbmate/worker-cli/releases/download/worker-0.1.0/pcbmate-worker-0.1.0-win32-x64.exe) |
+| Linux (x64) | [pcbmate-worker-0.1.0-linux-x64](https://github.com/pcbmate/worker-cli/releases/download/worker-0.1.0/pcbmate-worker-0.1.0-linux-x64) |
+| Linux (arm64) | [pcbmate-worker-0.1.0-linux-arm64](https://github.com/pcbmate/worker-cli/releases/download/worker-0.1.0/pcbmate-worker-0.1.0-linux-arm64) |
+
+Checksums: [SHA256SUMS](https://github.com/pcbmate/worker-cli/releases/download/worker-0.1.0/SHA256SUMS). The install scripts below download the right one for you,
+check it and set it up: the easier way.
+
 ## Install
 
 macOS and Linux:
