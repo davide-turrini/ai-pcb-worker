@@ -17,8 +17,8 @@ OUT="$WORK/tools"
 rm -rf "$WORK" && mkdir -p "$OUT" "$ROOT/dist"
 cd "$WORK"
 step() { printf '\n== %s\n' "$1"; }
-# sha256sum on Linux and Windows (Git Bash), shasum on macOS.
-sha256check() { if command -v sha256sum > /dev/null; then sha256sum -c; else shasum -a 256 -c; fi; }
+# shasum where it exists (macOS, some Linux), sha256sum otherwise (Windows Git Bash).
+sha256check() { if command -v shasum > /dev/null; then shasum -a 256 -c; else sha256sum -c; fi; }
 
 case "$SYSTEM" in
   darwin-arm64) OS=mac; ARCH=aarch64 ;;
