@@ -17,6 +17,8 @@ OUT="$WORK/tools"
 rm -rf "$WORK" && mkdir -p "$OUT" "$ROOT/dist"
 cd "$WORK"
 step() { printf '\n== %s\n' "$1"; }
+# sha256sum on Linux and Windows (Git Bash), shasum on macOS.
+sha256check() { if command -v sha256sum > /dev/null; then sha256sum -c; else shasum -a 256 -c; fi; }
 
 case "$SYSTEM" in
   darwin-arm64) OS=mac; ARCH=aarch64 ;;
@@ -42,7 +44,7 @@ fi
 
 step "Freerouting 2.4.1"
 curl -fsSL -o "$OUT/freerouting.jar" https://github.com/freerouting/freerouting/releases/download/v2.4.1/freerouting-2.4.1.jar
-echo "$FREEROUTING_SHA256  $OUT/freerouting.jar" | shasum -a 256 -c
+echo "$FREEROUTING_SHA256  $OUT/freerouting.jar" | sha256check
 
 step "ngspice $NGSPICE"
 mkdir -p "$OUT/ngspice/bin"
