@@ -1,4 +1,4 @@
-# Builds the tools of ai-pcb-worker for every system and publishes them as a release with their
+# Builds the tools of pcbmate-worker for every system and publishes them as a release with their
 # SHA-256 (the worker pins them). Started by hand: Actions → tools → Run workflow.
 name: tools
 

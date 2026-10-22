@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Builds the tools archive of ai-pcb-worker for one system:
+# Builds the tools archive of pcbmate-worker for one system:
 #   scripts/build-tools.sh <darwin-arm64|darwin-x64|linux-x64|linux-arm64|win32-x64> <release>
-# → dist/ai-pcb-tools-<release>-<system>.tar.gz with jre/ (Temurin 25 reduced with jlink),
+# → dist/pcbmate-tools-<release>-<system>.tar.gz with jre/ (Temurin 25 reduced with jlink),
 #   freerouting.jar (2.4.1, checked) and ngspice/ (44.2: built from source, official binaries on Windows).
 set -euo pipefail
 SYSTEM="$1"
@@ -71,6 +71,6 @@ step "Checks"
 du -sh "$OUT"/* | sed 's/^/  /'
 
 step "Archive"
-ARCHIVE="ai-pcb-tools-$RELEASE-$SYSTEM.tar.gz"
+ARCHIVE="pcbmate-tools-$RELEASE-$SYSTEM.tar.gz"
 tar -czf "$ROOT/dist/$ARCHIVE" -C "$OUT" .
 ls -la "$ROOT/dist/$ARCHIVE"
